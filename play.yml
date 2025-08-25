@@ -1,0 +1,15 @@
+---
+- hosts: test-server
+  vars_files:
+    - "{{ playbook_dir }}/global_vars/all/vault.yml"
+  roles:
+    - role: auto_login_astra
+    - role: local_repos
+    - role: ntp_server
+
+- hosts: test-client
+  vars_files:
+    - "{{ playbook_dir }}/global_vars/all/vault.yml"
+  roles:
+    - role: local_repos
+    - role: ntp_client

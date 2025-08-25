@@ -1,0 +1,17 @@
+---
+- name: Остановка и удаление chrony
+  become: yes
+  block:
+  - name: Остановка chronyd
+    service:
+      name: chrony
+      state: stopped
+      enabled: no
+    ignore_errors: yes
+  
+  - name: Удаление chrony
+    apt:
+      name: chrony
+      state: absent
+      purge: yes
+    ignore_errors: yes

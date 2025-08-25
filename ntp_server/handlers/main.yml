@@ -1,0 +1,7 @@
+---
+- name: restart chrony
+  service:
+    name: chrony
+    state: restarted
+  async: 60  # максимальное время выполнения (секунды)
+  poll: 10   # интервал проверки (секунды)

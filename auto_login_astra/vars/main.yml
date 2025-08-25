@@ -1,0 +1,3 @@
+---
+config_path: "/etc/X11/fly-dm/fly-dmrc"
+login_mac: "0:63:0x0:0x0!"

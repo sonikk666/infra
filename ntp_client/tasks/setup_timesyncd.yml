@@ -1,0 +1,36 @@
+---
+- name: Настройка NTP клиента
+  become: yes
+  block:
+  - name: Включить NTP через timedatectl
+    command: timedatectl set-ntp true
+    changed_when: false  # Не менять состояние системы при повторном запуске
+    register: timedatectl_result
+    failed_when: false   # Игнорировать ошибки, если команда не поддерживается
+
+  - name: Установить NTP серверы в конфигурации timesyncd
+    template:
+      src: timesyncd.conf.j2
+      dest: /etc/systemd/timesyncd.conf
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    notify:
+      - restart systemd-timesyncd
+
+  - name: Включить и запустить службу systemd-timesyncd
+    systemd:
+      name: systemd-timesyncd
+      state: started
+      enabled: yes  # автозапуск
+      daemon_reload: yes
+
+  - name: Проверка статуса systemd-timesyncd
+    command: systemctl status systemd-timesyncd
+    register: timesyncd_status
+    changed_when: false
+
+  - name: Вывод результата проверки статуса
+    debug:
+      var: timesyncd_status.stdout_lines

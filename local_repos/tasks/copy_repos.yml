@@ -1,0 +1,19 @@
+---
+- name: Копирование репозитория
+  block:
+  - name: Проверяем, существует ли папка для репозитория
+    stat:
+      path: "{{ repos_folder }}"
+    register: folder_info
+
+  - debug:
+      msg: "Копирование архива 15G (repos_base-1.7.6.15-15.11.24_17.20.tar). Пожалуйста, дождитесь завершения..."
+
+  - name: Копирование и Распаковка архива
+    unarchive:
+      src: "{{ src_archive }}"
+      dest: "{{ dest_folder }}"
+      remote_src: no  # архив на control-машине
+      keep_newer: yes  # не перезаписывать новые файлы
+    when: not folder_info.stat.exists
+    become: yes

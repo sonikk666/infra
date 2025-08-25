@@ -1,0 +1,25 @@
+---
+- name: Установка и настройка chrony
+  become: yes
+  block:
+  - name: Установка chrony
+    apt:
+      name: chrony
+      state: present
+      update_cache: yes
+
+  - name: Настройка chrony как сервера
+    template:
+      src: chrony.conf.j2
+      dest: /etc/chrony/chrony.conf
+      owner: root
+      group: root
+      mode: 0644
+    notify:
+      - restart chrony
+
+  - name: Включение и запуск chrony
+    service:
+      name: chrony
+      enabled: yes
+      state: started

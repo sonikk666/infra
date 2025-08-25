@@ -1,0 +1,3 @@
+---
+- import_tasks: copy_repos.yml
+- import_tasks: change_sources_list.yml

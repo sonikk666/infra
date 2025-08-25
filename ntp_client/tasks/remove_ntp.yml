@@ -1,0 +1,17 @@
+---
+- name: Остановка и удаление ntp
+  become: yes
+  block:
+  - name: Остановка ntpd
+    service:
+      name: ntp
+      state: stopped
+      enabled: no
+    ignore_errors: yes
+  
+  - name: Удаление ntp
+    apt:
+      name: ntp
+      state: absent
+      purge: yes
+    ignore_errors: yes

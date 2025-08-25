@@ -1,0 +1,23 @@
+---
+- name: Установить параметры автоматического входа
+  become: yes
+  lineinfile:
+    path: "{{ config_path }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    backup: yes
+  with_items:
+    - { regexp: '^#?AutoLoginEnable=.*', line: 'AutoLoginEnable=true' }
+    - { regexp: '^#?AutoLoginUser=.*', line: 'AutoLoginUser={{ vault_os_username }}' }
+    - { regexp: '^#?AutoLoginPass=.*', line: 'AutoLoginPass={{ vault_os_password }}' }
+    - { regexp: '^#?AutoLoginMAC=.*', line: 'AutoLoginMAC={{ login_mac }}' }
+
+- name: Установить права доступа 600 на файл config
+  become: yes
+  file:
+    path: "{{ config_path }}"
+    mode: "0600"
+    owner: root
+    group: root
+  

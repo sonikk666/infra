@@ -1,0 +1,40 @@
+---
+servers:
+  hosts:
+    test-server:
+      ansible_host: test-server
+      paired_client: test-client
+    server01:
+      ansible_host: xx.xx.xx.xx  # ex. 172.22.4.99
+      paired_client: client01
+    server02:
+      ansible_host: xx.xx.xx.xx
+      paired_client: client02
+    server03:
+      ansible_host: xx.xx.xx.xx
+      paired_client: client03
+
+clients:
+  hosts:
+    test-client:
+      ansible_host: test-client
+      paired_server: test-server
+    client01:
+      ansible_host: xx.xx.xx.xx
+      paired_server: server01
+    client02:
+      ansible_host: xx.xx.xx.xx
+      paired_server: server02
+    client03:
+      ansible_host: xx.xx.xx.xx
+      paired_server: server03
+
+airfields:
+  children:
+      servers:
+      clients:
+  vars:
+    ansible_connection: ssh
+    ansible_user: "{{ vault_os_username }}"
+    ansible_ssh_pass: "{{ vault_os_password }}"
+    ansible_become_pass: "{{ vault_os_password }}"

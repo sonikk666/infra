@@ -1,0 +1,4 @@
+---
+- import_tasks: remove_chrony.yml
+- import_tasks: remove_ntp.yml
+- import_tasks: setup_timesyncd.yml

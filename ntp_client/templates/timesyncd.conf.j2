@@ -1,0 +1,8 @@
+# Ansible
+# Configuration for {{ ansible_host }}
+[Time]
+NTP={{ hostvars[paired_server]['ansible_host'] }}
+#FallbackNTP=0.ru.pool.ntp.org 1.ru.pool.ntp.org 2.ru.pool.ntp.org 3.ru.pool.ntp.org ntp3.vniiftri.ru ntp4.vniiftri.ru ntp21.vniiftri.ru vn$
+#RootDistanceMaxSec=5
+#PollIntervalMinSec=32
+#PollIntervalMaxSec=2048

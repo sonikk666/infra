@@ -1,0 +1,11 @@
+---  
+- name: Настройка sources.list
+  template:
+    src: repos_base.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: Update apt cache
+  become: yes

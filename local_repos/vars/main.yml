@@ -1,0 +1,4 @@
+---
+src_archive: "~/repos_base-1.7.6.15-15.11.24_17.20.tar"
+dest_folder: /opt/
+repos_folder: "/opt/repos_base-1.7.6.15-15.11.24_17.20/"
